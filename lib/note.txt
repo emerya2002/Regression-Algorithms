@@ -1,1 +1,1 @@
-- Matplotlib --> Needed for visualizing prices/variables, and results
+- Matplotlib --> Needed for visualizing prices/variables, and results (https://github.com/lava/matplotlib-cpp)

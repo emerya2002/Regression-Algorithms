@@ -1,24 +1,25 @@
-# TODO
+# ! Makefile should be ran from top level folder (regression/)
+FLAGS= -std=c++11 -Wall -Iinclude -c
 
 all:main
 
 main: LinearRegression.o LogisticRegression.o Parser.o Util.o main.o
 	g++ -std=c++11 -Wall LinearRegression.o LogisticRegression.o Parser.o Util.o main.o -o main
 
-LinearRegression.o: LinearRegression.cpp
-	g++ -std=c++11 -Wall -c LinearRegression.cpp
+main.o: src/main.cpp include/LinearRegression.h include/LogisticRegression.h include/Parser.h include/Util.h
+	g++ $(FLAGS) src/main.cpp
 
-LogisticRegression.o: LogisticRegression.cpp
-	g++ -std=c++11 -Wall -c LogisticRegression.cpp
+LinearRegression.o: src/LinearRegression.cpp include/LinearRegression.h
+	g++ $(FLAGS) src/LinearRegression.cpp
 
-Parser.o: Parser.cpp
-	g++ -std=c++11 -Wall -c Parser.cpp
+LogisticRegression.o: src/LogisticRegression.cpp include/LogisticRegression.h
+	g++ $(FLAGS) src/LogisticRegression.cpp
 
-Util.o: Util.cpp
-	g++ -std=c++11 -Wall -c Util.cpp
+Parser.o: src/Parser.cpp include/Parser.h
+	g++ $(FLAGS) src/Parser.cpp
 
-main.o: main.cpp
-	g++ -std=c++11 -Wall -c main.cpp
+Util.o: src/Util.cpp include/Util.h
+	g++ $(FLAGS) src/Util.cpp
 
 clean: 
 	rm -f *.o *.h.gch main

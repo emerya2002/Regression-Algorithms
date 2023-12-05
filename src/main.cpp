@@ -44,12 +44,18 @@ void verify_data()
     verify("variables", variables);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     // test_headers();
     // verify_data();
-  
+
     // TODO: Add command line arguments to pick a certain stock/variable
-  
+
+    // TODO: Read Data for selected stock and variable
+
+    // TODO: Randomly Split up data into train (95%) and test(5%) vectors for each
+
+    // TODO: Train Linear and Logistic Regression models using 95% of dataset
+
     // Testing out linear regression
     std::cout << "** Testing Linear ** " << std::endl;
     linear_regression::LinearRegression linearModel(result1.second, result2.second);
@@ -64,7 +70,7 @@ int main() {
     }
 
     linear_outputFile.close();
-    
+
     // Testing out logistic regression
     std::cout << "** Testing Logistic **" << std::endl;
     logistic_regression::LogisticRegression logisticModel(result1.second, result2.second);
@@ -79,6 +85,8 @@ int main() {
     }
 
     logistic_outputFile.close();
+
+    // TODO: Test model predictions using 5% of dataset
 
     return 0;
 }

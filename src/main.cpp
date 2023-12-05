@@ -57,6 +57,12 @@ int main(int argc, char *argv[]) {
     // TODO: Train Linear and Logistic Regression models using 95% of dataset
 
     // Testing out linear regression
+    std::string data_file1 = "data/stocks/sample.csv";
+    std::string data_file2 = "data/variables/sample.csv";
+
+    std::pair<std::vector<std::string>, std::vector<float> > result1 = parser::parse_csv(data_file1);
+    std::pair<std::vector<std::string>, std::vector<float> > result2 = parser::parse_csv(data_file2);
+
     std::cout << "** Testing Linear ** " << std::endl;
     linear_regression::LinearRegression linearModel(result1.second, result2.second);
 
@@ -85,6 +91,15 @@ int main(int argc, char *argv[]) {
     }
 
     logistic_outputFile.close();
+
+    /*
+    std::cout << "RESULT1" << std::endl;
+    util::print_vector(result1.first);
+    util::print_vector(result1.second);
+    std::cout << "RESULT2" << std::endl;
+    util::print_vector(result2.first);
+    util::print_vector(result2.second);
+    */
 
     // TODO: Test model predictions using 5% of dataset
 

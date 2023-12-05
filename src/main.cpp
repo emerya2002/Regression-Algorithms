@@ -2,7 +2,8 @@
 #include "LogisticRegression.h"
 #include "Parser.h"
 #include "Util.h"
-// #include <iostream>
+#include <iostream>
+#include <fstream>
 
 #define NUM_DAYS 100 // Number of rows in each csv within data
 
@@ -46,8 +47,38 @@ void verify_data()
 int main() {
     // test_headers();
     // verify_data();
-
+  
     // TODO: Add command line arguments to pick a certain stock/variable
+  
+    // Testing out linear regression
+    std::cout << "** Testing Linear ** " << std::endl;
+    linear_regression::LinearRegression linearModel(result1.second, result2.second);
+
+    // opening linear output file
+    std::ofstream linear_outputFile("LinearPredictions.txt");
+    std::cout << "Linear Predictions outputted to output file **" << std::endl;
+
+    linear_outputFile << "Predictions: " << std::endl;
+    for(float x : result1.second) {
+        linear_outputFile << "Prediction for x = " << x << ": " << linearModel.prediction(x) << std::endl;
+    }
+
+    linear_outputFile.close();
+    
+    // Testing out logistic regression
+    std::cout << "** Testing Logistic **" << std::endl;
+    logistic_regression::LogisticRegression logisticModel(result1.second, result2.second);
+
+    // opening linear output file
+    std::ofstream logistic_outputFile("LogisticPredictions.txt");
+    std::cout << "Logistic Predictions outputted to output file **" << std::endl;
+
+    logistic_outputFile << "Predictions: " << std::endl;
+    for(float x : result1.second) {
+        logistic_outputFile << "Prediction for x = " << x << ": " << logisticModel.prediction(x) << std::endl;
+    }
+
+    logistic_outputFile.close();
 
     return 0;
 }

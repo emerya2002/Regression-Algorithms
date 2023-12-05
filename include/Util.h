@@ -13,15 +13,7 @@ namespace util
 
     // Prints a vector in the form "[a, b, ..., y, z]"
     template <typename T>
-    void print_vector(const std::vector<T> &vec)
-    {
-        std::cout << "[";
-        for (long unsigned int i = 0; i < vec.size() - 1; ++i)
-        {
-            std::cout << vec[i] << ", ";
-        }
-        std::cout << vec[vec.size() - 1] << "]" << std::endl;
-    }
+    void print_vector(const std::vector<T> &vec);
 
 } // namespace util
 

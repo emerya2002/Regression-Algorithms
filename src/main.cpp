@@ -7,9 +7,9 @@
 
 #define NUM_DAYS 100 // Number of rows in each csv within data
 
+// Verifies that all header files are linked properly
+// should all print hello from filename.
 void test_headers() {
-    // Verifies that all header files are linked properly
-    // should all print hello with filename.
     linear_regression::test();
     logistic_regression::test();
     parser::test();
@@ -45,13 +45,29 @@ void verify_data()
 }
 
 int main(int argc, char *argv[]) {
-    // test_headers();
-    // verify_data();
+    // Pick a certain stock/variable based on command line arguments
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <stock_name> <variable_name>" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    // Read in Data for selected stock and variable
+    std::string stock_name = argv[1];
+    std::string variable_name = argv[2];
 
-    // TODO: Add command line arguments to pick a certain stock/variable
+    std::string stock_file = "data/stocks/" + stock_name + ".csv";
+    std::string variable_file = "data/variables/" + variable_name + ".csv";
 
-    // TODO: Read Data for selected stock and variable
+    std::pair<std::vector<std::string>, std::vector<float> > stock_data = parser::parse_csv(stock_file);
+    std::pair<std::vector<std::string>, std::vector<float> > variable_data = parser::parse_csv(variable_file);
+    // Verify data is complete and of equal length
+    if (stock_data.first.size() != NUM_DAYS || variable_data.first.size() != NUM_DAYS)
+    {
+        std::cerr << "Error: Data size mismatch" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
+    // util::print_vector(stock_data.second);
+    // util::print_vector(variable_data.second);
     // TODO: Randomly Split up data into train (95%) and test(5%) vectors for each
 
     // TODO: Train Linear and Logistic Regression models using 95% of dataset

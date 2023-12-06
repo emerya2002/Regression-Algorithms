@@ -4,8 +4,10 @@
 #include "Util.h"
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 #define NUM_DAYS 100 // Number of rows in each csv within data
+#define TEST_AMOUNT 5 // Number of rows that would be used for testing
 
 // Verifies that all header files are linked properly
 // should all print hello from filename.
@@ -65,10 +67,11 @@ int main(int argc, char *argv[]) {
         std::cerr << "Error: Data size mismatch" << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    // util::print_vector(stock_data.second);
-    // util::print_vector(variable_data.second);
-    // TODO: Randomly Split up data into train (95%) and test(5%) vectors for each
+    // Randomly Split up data into train (95%) and test(5%) vectors for each
+    auto stock_data_test = std::make_pair(std::vector<std::string>(), std::vector<float>());
+    auto variable_data_test = std::make_pair(std::vector<std::string>(), std::vector<float>());
+    util::splitData(stock_data, stock_data_test, TEST_AMOUNT);
+    util::splitData(variable_data, variable_data_test, TEST_AMOUNT);
 
     // TODO: Train Linear and Logistic Regression models using 95% of dataset
 

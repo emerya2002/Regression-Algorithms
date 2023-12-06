@@ -23,6 +23,12 @@ namespace util
         std::cout << vec[vec.size() - 1] << "]" << std::endl;
     }
 
+    // Moves `test_amount` random entries from train_data into test_data
+    void splitData(
+        std::pair<std::vector<std::string>, std::vector<float> > &train_data,
+        std::pair<std::vector<std::string>, std::vector<float> > &test_data,
+        int test_amount);
+
 } // namespace util
 
 #endif

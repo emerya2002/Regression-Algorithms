@@ -23,6 +23,7 @@ void splitData(
 	// Seed random generator with current time
 	std::srand(std::time(nullptr));
 
+	// TODO return a vector with whether or not each entry is > the day before
 	for (int i = 0; i < test_amount; ++i)
 	{
 		// Generate a random index

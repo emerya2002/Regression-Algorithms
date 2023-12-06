@@ -7,7 +7,9 @@
 #include <utility>
 
 #define NUM_DAYS 100 // Number of rows in each csv within data
-#define TEST_AMOUNT 5 // Number of rows that would be used for testing
+#define TEST_AMOUNT 5 // Number of rows that would be used for testing (5%)
+#define LEARNING_RATE 0.005 // How large each update to the logistic model should be
+#define NUM_EPOCHS 20 // Number of times to train the logistic model over training data
 
 // Verifies that all header files are linked properly
 // should all print hello from filename.
@@ -93,7 +95,7 @@ int main(int argc, char *argv[]) {
 
     // Testing out logistic regression
     std::cout << "** Testing Logistic **" << std::endl;
-    logistic_regression::LogisticRegression logisticModel(variable_data.second, stock_data.second);
+    logistic_regression::LogisticRegression logisticModel(variable_data.second, stock_data.second, LEARNING_RATE, NUM_EPOCHS);
 
     // opening linear output file
     std::ofstream logistic_outputFile("LogisticPredictions.txt");

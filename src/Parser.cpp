@@ -10,13 +10,15 @@ void test() {
 	std::cout << "Hello from Parser.cpp" << std::endl;
 }
 
+// Reads in data from a two column CSV file and returns a std::pair with the
+// first column as a vector of strings and the second as a vector of floats
 std::pair<std::vector<std::string>, std::vector<float> > parse_csv(const std::string& filename) {
 	// Read in data from csv file
 	std::ifstream file(filename);
 	std::string line;
 
 	if (!file.is_open()) {
-		std::cerr << "Parser: Invalid filename!" << std::endl;
+		std::cerr << "Parser: Invalid filename '" << filename << "'" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 

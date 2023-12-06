@@ -35,3 +35,7 @@ main
 # MacOS
 *.DS_Store
 .vscode/
+
+# Logs
+LinearPredictions.txt
+LogisticPredictions.txt

@@ -101,5 +101,7 @@
     "**/.vscode",
     "**/.vscode/**"
   ],
-  "C_Cpp_Runner.useAddressSanitizer": false
+  "C_Cpp_Runner.useAddressSanitizer": false,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.tree.disableCompactFolders": true
 }

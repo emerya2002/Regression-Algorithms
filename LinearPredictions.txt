@@ -1,11 +1,6 @@
 Predictions: 
-Prediction for x = 3.43: 0
-Prediction for x = 3.76: 0
-Prediction for x = 3.47: 0
-Prediction for x = 3.67: 0
-Prediction for x = 3.62: 0
-Prediction for x = 3.42: 0
-Prediction for x = 3.53: 0
-Prediction for x = 3.69: 0
-Prediction for x = 3.48: 0
-Prediction for x = 3.68: 0
+Prediction for x = 8.08: 154.026
+Prediction for x = 7.98: 150.16
+Prediction for x = 7.9: 147.068
+Prediction for x = 8.5: 170.264
+Prediction for x = 8.41: 166.784

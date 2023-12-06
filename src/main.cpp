@@ -72,7 +72,10 @@ int main(int argc, char *argv[]) {
     // Randomly Split up data into train (95%) and test(5%) vectors for each
     auto stock_data_test = std::make_pair(std::vector<std::string>(), std::vector<float>());
     auto variable_data_test = std::make_pair(std::vector<std::string>(), std::vector<float>());
-    util::splitData(stock_data, stock_data_test, TEST_AMOUNT);
+    // Store a binary encoding of the testing data to be used to evaluate the
+    // logistical model in future. This will let us know if that datapoint
+    // was a profit or a loss.
+    std::vector<int> stock_encodings_test = util::splitData(stock_data, stock_data_test, TEST_AMOUNT);
     util::splitData(variable_data, variable_data_test, TEST_AMOUNT);
 
     // TODO: Train Linear and Logistic Regression models using 95% of dataset
@@ -101,23 +104,24 @@ int main(int argc, char *argv[]) {
     std::ofstream logistic_outputFile("LogisticPredictions.txt");
     std::cout << "Logistic Predictions outputted to output file **" << std::endl;
 
-    // TODO: log error rate between prediction and actual price, with total error
+    // Log error rate between prediction and actual movement, with total error
     logistic_outputFile << "Predictions: " << std::endl;
-    for (float x : variable_data_test.second)
+    int correct_predictions = 0;
+    for (int i = 0; i < variable_data_test.second.size(); i++)
     {
-        logistic_outputFile << "Prediction for x = " << x << ": " << logisticModel.prediction(x) << std::endl;
+        float x = variable_data_test.second[i];
+        int prediction = logisticModel.prediction(x);
+        // Use binary encoding to determine if prediction was right or wrong
+        logistic_outputFile << "Prediction for x = " << x << ": " << prediction << " -- Actual = " << stock_encodings_test[i] << std::endl;
+        if (prediction == stock_encodings_test[i]) {
+            correct_predictions++;
+        }
     }
+    logistic_outputFile << "=================" << std::endl;
+    float logistic_accuracy = static_cast<float>(correct_predictions) / static_cast<float>(variable_data_test.second.size()) * 100;
+    logistic_outputFile << "Accuracy: " << logistic_accuracy << "%" << std::endl;
 
     logistic_outputFile.close();
-
-    /*
-    std::cout << "RESULT1" << std::endl;
-    util::print_vector(result1.first);
-    util::print_vector(result1.second);
-    std::cout << "RESULT2" << std::endl;
-    util::print_vector(result2.first);
-    util::print_vector(result2.second);
-    */
 
     return 0;
 }

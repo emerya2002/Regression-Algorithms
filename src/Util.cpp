@@ -11,7 +11,7 @@ void test() {
 	std::cout << "Hello from Util.cpp" << std::endl;
 }
 
-void splitData(
+std::vector<int> splitData(
 	std::pair<std::vector<std::string>, std::vector<float> > &train_data,
 	std::pair<std::vector<std::string>, std::vector<float> > &test_data,
 	int test_amount = 5) {
@@ -23,11 +23,18 @@ void splitData(
 	// Seed random generator with current time
 	std::srand(std::time(nullptr));
 
-	// TODO return a vector with whether or not each entry is > the day before
+	std::vector<int> result;
 	for (int i = 0; i < test_amount; ++i)
 	{
 		// Generate a random index
 		int index = std::rand() % train_data.first.size();
+
+		// Populate result with whether or not each entry is > the day before
+		if (index != 0) {
+			result.push_back(train_data.second[index] > train_data.second[index - 1] ? 1 : 0);
+		} else {
+			result.push_back(0);
+		}
 
 		// Move the values at index from train_data to test_data
 		test_data.first.push_back(train_data.first[index]);
@@ -37,6 +44,7 @@ void splitData(
 		train_data.first.erase(train_data.first.begin() + index);
 		train_data.second.erase(train_data.second.begin() + index);
 	}
+	return result;
 }
 
 } // namespace util

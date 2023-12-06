@@ -75,22 +75,17 @@ int main(int argc, char *argv[]) {
 
     // TODO: Train Linear and Logistic Regression models using 95% of dataset
 
-    // Testing out linear regression
-    std::string data_file1 = "data/stocks/sample.csv";
-    std::string data_file2 = "data/variables/sample.csv";
-
-    std::pair<std::vector<std::string>, std::vector<float> > result1 = parser::parse_csv(data_file1);
-    std::pair<std::vector<std::string>, std::vector<float> > result2 = parser::parse_csv(data_file2);
-
     std::cout << "** Testing Linear ** " << std::endl;
-    linear_regression::LinearRegression linearModel(result1.second, result2.second);
+    linear_regression::LinearRegression linearModel(variable_data.second, stock_data.second);
 
     // opening linear output file
     std::ofstream linear_outputFile("LinearPredictions.txt");
     std::cout << "Linear Predictions outputted to output file **" << std::endl;
 
+    // TODO: log error rate between prediction and actual price, with total error
     linear_outputFile << "Predictions: " << std::endl;
-    for(float x : result1.second) {
+    for (float x : variable_data_test.second)
+    {
         linear_outputFile << "Prediction for x = " << x << ": " << linearModel.prediction(x) << std::endl;
     }
 
@@ -98,14 +93,16 @@ int main(int argc, char *argv[]) {
 
     // Testing out logistic regression
     std::cout << "** Testing Logistic **" << std::endl;
-    logistic_regression::LogisticRegression logisticModel(result1.second, result2.second);
+    logistic_regression::LogisticRegression logisticModel(variable_data.second, stock_data.second);
 
     // opening linear output file
     std::ofstream logistic_outputFile("LogisticPredictions.txt");
     std::cout << "Logistic Predictions outputted to output file **" << std::endl;
 
+    // TODO: log error rate between prediction and actual price, with total error
     logistic_outputFile << "Predictions: " << std::endl;
-    for(float x : result1.second) {
+    for (float x : variable_data_test.second)
+    {
         logistic_outputFile << "Prediction for x = " << x << ": " << logisticModel.prediction(x) << std::endl;
     }
 
@@ -119,8 +116,6 @@ int main(int argc, char *argv[]) {
     util::print_vector(result2.first);
     util::print_vector(result2.second);
     */
-
-    // TODO: Test model predictions using 5% of dataset
 
     return 0;
 }

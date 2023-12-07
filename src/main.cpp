@@ -82,9 +82,9 @@ int main(int argc, char *argv[]) {
     util::splitData(variable_data, variable_data_test, TEST_AMOUNT);
 
     // get linear runtime
-    auto linear_start = std::chrono::high_resolution_clock::now();  
+    auto linear_start = std::chrono::high_resolution_clock::now();
 
-    // TODO: Train Linear and Logistic Regression models using 95% of dataset
+    // Train Linear and Logistic Regression models using 95% of dataset
     vector<pair<float, float>> xy_values;
     for (size_t i = 0; i < variable_data.second.size(); ++i) {
         xy_values.push_back(make_pair(variable_data.second[i], stock_data.second[i]));
@@ -97,15 +97,23 @@ int main(int argc, char *argv[]) {
     ofstream linear_outputFile("LinearPredictions.txt");
     cout << "Linear Predictions outputted to output file **" << endl;
 
-    // TODO: log error rate between prediction and actual price, with total error
+    // Log error rate between prediction and actual price, with total error
     linear_outputFile << "The best fitting line is y = " << linearModel.showSlope() << "x + " << linearModel.showIntercept() << endl;
 
     // linear_outputFile << "The mean of xy is " << linearModel.showXY_mean() << ", the sum of xy is " << linearModel.showXY_sum() << endl;
     linear_outputFile << endl << "Predictions: " << endl;
-    for (float x : variable_data_test.second)
+    float error = 0;
+    float total = 0;
+    for (int i = 0; i < variable_data_test.second.size(); i++)
     {
-        linear_outputFile << "Prediction for x = " << x << ": " << linearModel.prediction(x) << endl;
+        float x = variable_data_test.second[i];
+        float prediction = linearModel.prediction(x);
+        linear_outputFile << "Prediction for x = " << x << ": " << prediction << " -- Actual = " << stock_data_test.second[i] << std::endl;
+        error += std::abs(stock_data_test.second[i] - prediction);
+        total += stock_data_test.second[i];
     }
+
+    linear_outputFile << "=================\nAverage Percent Error: " << (error / total) * 100 << "%" << std::endl;
 
     auto linear_end = chrono::high_resolution_clock::now();  // Stop measuring time
 
@@ -118,7 +126,7 @@ int main(int argc, char *argv[]) {
 
     // Testing out logistic regression
     // get linear runtime
-    auto logistic_start = std::chrono::high_resolution_clock::now();  
+    auto logistic_start = std::chrono::high_resolution_clock::now();
     std::cout << "** Testing Logistic **" << std::endl;
     logistic_regression::LogisticRegression logisticModel(variable_data.second, stock_data.second, LEARNING_RATE, NUM_EPOCHS);
 

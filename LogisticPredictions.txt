@@ -1,10 +1,10 @@
 Predictions: 
-Prediction for x = 4.12: 1 -- Actual = 0
-Prediction for x = 4.52: 1 -- Actual = 1
-Prediction for x = 3.88: 1 -- Actual = 0
-Prediction for x = 3.79: 1 -- Actual = 1
-Prediction for x = 2.92: 1 -- Actual = 0
+Prediction for x = 3.52: 0 -- Actual = 0
+Prediction for x = 3.42: 0 -- Actual = 0
+Prediction for x = 3.74: 0 -- Actual = 0
+Prediction for x = 3.57: 0 -- Actual = 1
+Prediction for x = 3.62: 0 -- Actual = 1
 =================
-Accuracy: 40%
+Accuracy: 60%
 
-Running Time: 233 ms
+Running Time: 301 ms

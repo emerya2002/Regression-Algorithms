@@ -1,12 +1,12 @@
-The best fitting line is y = -20.1519x + 236.112
+The best fitting line is y = 27.2973x + 48.3992
 
 Predictions: 
-Prediction for x = 4.12: 153.086 -- Actual = 146.71
-Prediction for x = 4.52: 145.025 -- Actual = 148.91
-Prediction for x = 3.88: 157.922 -- Actual = 158.28
-Prediction for x = 3.79: 159.736 -- Actual = 164.66
-Prediction for x = 2.92: 177.268 -- Actual = 171.56
+Prediction for x = 3.52: 144.486 -- Actual = 140.42
+Prediction for x = 3.42: 141.756 -- Actual = 143.62
+Prediction for x = 3.74: 150.491 -- Actual = 149.78
+Prediction for x = 3.57: 145.851 -- Actual = 148.69
+Prediction for x = 3.62: 147.216 -- Actual = 151.73
 =================
-Average Percent Error: 2.68953%
+Average Percent Error: 1.90601%
 
-Running Time: 288 ms
+Running Time: 287 ms

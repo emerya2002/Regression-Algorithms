@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/eventura3/Documents/GitHub/regression",
-      "program": "/Users/eventura3/Documents/GitHub/regression/build/Debug/outDebug"
+      "cwd": "/Users/eventura3/Documents/GitHub/regression/src",
+      "program": "/Users/eventura3/Documents/GitHub/regression/src/build/Debug/outDebug"
     }
   ]
 }

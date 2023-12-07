@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <utility>
+#include <chrono>
 
 #define NUM_DAYS 100 // Number of rows in each csv within data
 #define TEST_AMOUNT 5 // Number of rows that would be used for testing (5%)
@@ -49,6 +50,8 @@ void verify_data()
 }
 
 int main(int argc, char *argv[]) {
+    // test_headers();
+
     // Pick a certain stock/variable based on command line arguments
     if (argc != 3) {
         std::cerr << "Usage: " << argv[0] << " <stock_name> <variable_name>" << std::endl;
@@ -78,29 +81,48 @@ int main(int argc, char *argv[]) {
     std::vector<int> stock_encodings_test = util::splitData(stock_data, stock_data_test, TEST_AMOUNT);
     util::splitData(variable_data, variable_data_test, TEST_AMOUNT);
 
-    // TODO: Train Linear and Logistic Regression models using 95% of dataset
+    // get linear runtime
+    auto linear_start = std::chrono::high_resolution_clock::now();  
 
-    std::cout << "** Testing Linear ** " << std::endl;
-    linear_regression::LinearRegression linearModel(variable_data.second, stock_data.second);
+    // TODO: Train Linear and Logistic Regression models using 95% of dataset
+    vector<pair<float, float>> xy_values;
+    for (size_t i = 0; i < variable_data.second.size(); ++i) {
+        xy_values.push_back(make_pair(variable_data.second[i], stock_data.second[i]));
+    }
+
+    cout << "** Testing Linear ** " << endl;
+    linear_regression::LinearRegression linearModel(variable_data.second, stock_data.second, xy_values);
 
     // opening linear output file
-    std::ofstream linear_outputFile("LinearPredictions.txt");
-    std::cout << "Linear Predictions outputted to output file **" << std::endl;
+    ofstream linear_outputFile("LinearPredictions.txt");
+    cout << "Linear Predictions outputted to output file **" << endl;
 
     // TODO: log error rate between prediction and actual price, with total error
-    linear_outputFile << "Predictions: " << std::endl;
+    linear_outputFile << "The best fitting line is y = " << linearModel.showSlope() << "x + " << linearModel.showIntercept() << endl;
+
+    // linear_outputFile << "The mean of xy is " << linearModel.showXY_mean() << ", the sum of xy is " << linearModel.showXY_sum() << endl;
+    linear_outputFile << endl << "Predictions: " << endl;
     for (float x : variable_data_test.second)
     {
-        linear_outputFile << "Prediction for x = " << x << ": " << linearModel.prediction(x) << std::endl;
+        linear_outputFile << "Prediction for x = " << x << ": " << linearModel.prediction(x) << endl;
     }
+
+    auto linear_end = chrono::high_resolution_clock::now();  // Stop measuring time
+
+    // Calculate and print the running time in seconds
+    auto linear_duration = chrono::duration_cast<chrono::microseconds>(linear_end - linear_start);
+    linear_outputFile << endl << "Running Time: " << linear_duration.count() << " ms" << endl;
+
 
     linear_outputFile.close();
 
     // Testing out logistic regression
+    // get linear runtime
+    auto logistic_start = std::chrono::high_resolution_clock::now();  
     std::cout << "** Testing Logistic **" << std::endl;
     logistic_regression::LogisticRegression logisticModel(variable_data.second, stock_data.second, LEARNING_RATE, NUM_EPOCHS);
 
-    // opening linear output file
+    // opening logistic output file
     std::ofstream logistic_outputFile("LogisticPredictions.txt");
     std::cout << "Logistic Predictions outputted to output file **" << std::endl;
 
@@ -120,6 +142,12 @@ int main(int argc, char *argv[]) {
     logistic_outputFile << "=================" << std::endl;
     float logistic_accuracy = static_cast<float>(correct_predictions) / static_cast<float>(variable_data_test.second.size()) * 100;
     logistic_outputFile << "Accuracy: " << logistic_accuracy << "%" << std::endl;
+
+    auto logistic_end = chrono::high_resolution_clock::now();  // Stop measuring time
+
+    // Calculate and print the running time in seconds
+    auto logistic_duration = chrono::duration_cast<chrono::microseconds>(logistic_end - logistic_start);
+    logistic_outputFile << endl << "Running Time: " << logistic_duration.count() << " ms" << endl;
 
     logistic_outputFile.close();
 
